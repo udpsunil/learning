@@ -36,4 +36,7 @@ func main() {
 	for k, v := range wellKnownPorts {
 		println(k, v)
 	}
+
+	//branching concept panic - no idea how to recover
+	panic("Something bad just happened")	
 }
