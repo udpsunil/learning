@@ -2,6 +2,14 @@ package main
 
 import "fmt"
 
+//PI iota & constant expressions
+const PI = 3.1415
+const (
+	first  = 0
+	second = 1
+	third  = iota
+)
+
 func main() {
 	// declaration and definition
 	var i int
@@ -34,4 +42,17 @@ func main() {
 
 	firstName = "Aditi"
 	fmt.Println(ptr, *ptr)
+
+	// constants
+	const pi = 3.1415 // same line - can not change. compile time constants not run time.
+	fmt.Println(pi)
+
+	const d = 3 // implicitly typed constant
+	fmt.Println(d + 3)
+
+	fmt.Println(d + 1.2)
+
+	fmt.Println(PI)
+	fmt.Println(first, second, third)
+
 }
