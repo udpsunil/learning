@@ -23,4 +23,15 @@ func main() {
 
 	r, im := real(c), imag(c)
 	fmt.Println(r, im)
+
+	// pointers, no pointer arithmetic
+	var secondName *string = new(string)
+	*secondName = "Udupi"
+	fmt.Println(*secondName)
+
+	ptr := &firstName
+	fmt.Println(ptr, *ptr)
+
+	firstName = "Aditi"
+	fmt.Println(ptr, *ptr)
 }
