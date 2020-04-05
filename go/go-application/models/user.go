@@ -27,6 +27,11 @@ func AddUser(u User) (User, error) {
 	if u.ID != 0 {
 		return User{}, errors.New("New user must not include id or it must be selected")
 	}
+	for _, candidate := range users {
+		if u.FirstName == candidate.FirstName && u.LastName == candidate.LastName {
+			return User{}, errors.New("User already exists. Add another unique user")
+		}
+	}
 	u.ID = nextID
 	nextID++
 	users = append(users, &u)
