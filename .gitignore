@@ -1,1 +1,4 @@
 *.exe
+
+#folders
+.idea
