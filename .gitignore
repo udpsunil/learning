@@ -1,6 +1,8 @@
 *.exe
+*.json
 
 #folders
 .idea
 .ipynb*
 .vscode
+.vs
