@@ -6,8 +6,10 @@ class Ship:
         self.cargo = 0
 
     # the old sail method that you need to rewrite
-    def sail(self):
-        print("{} has sailed!".format(self.name))
+    def sail(self, destination):
+        print("The {} has sailed for {}!".format(self.name, destination))
 
 
 black_pearl = Ship("Black Pearl", 800)
+country = input()
+black_pearl.sail(country)

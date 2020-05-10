@@ -5,3 +5,8 @@ class Patient:
         self.age = age
 
     # create methods here
+    def __repr__(self):
+        return f"Object of the class {self.__class__.__name__}. name: {self.name}, last_name: {self.last_name}, age: {self.age} "
+
+    def __str__(self):
+        return f"{self.name} {self.last_name}. {self.age}"

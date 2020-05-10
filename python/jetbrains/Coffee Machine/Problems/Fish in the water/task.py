@@ -8,3 +8,4 @@ class Fish:
 
 
 greg = Fish("Greg", "guppy")
+Fish.n_fish += 1

@@ -4,3 +4,4 @@ class Dog:
 
 
 # create pumpkin
+pumpkin = Dog('Pumpkin')

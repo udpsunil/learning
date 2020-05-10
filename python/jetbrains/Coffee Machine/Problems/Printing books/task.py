@@ -6,3 +6,6 @@ class Book:
         self.book_id = book_id
 
     # define the necessary method here
+    def __str__(self):
+        return f"{self.title} by {self.author}. ${self.price}. [{self.book_id}]"
+
