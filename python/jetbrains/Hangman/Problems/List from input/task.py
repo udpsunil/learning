@@ -1,3 +1,3 @@
 n = int(input())
-for _i in range(n):
-    pass
+output = [int(input()) for _ in range(n)]
+print(output)
