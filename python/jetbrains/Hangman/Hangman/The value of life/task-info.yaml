@@ -231,6 +231,44 @@ files:
     if __name__ == '__main__':
         CoffeeMachineTest('hangman.hangman').run_tests()
   learner_created: false
+- name: hangman/hangman.py
+  visible: true
+  text: |
+    import random
+
+
+    # Write your code here
+
+    def print_hidden_word(chosen, letters):
+        for letter in chosen:
+            if letter in letters:
+                print(letter, end='')
+            else:
+                print("-", end='')
+        print()
+
+
+    print("H A N G M A N")
+    word_list = ['python', 'java', 'kotlin', 'javascript']
+    chosen_word = random.choice(word_list)
+    tries = 8
+    identified_letters = set()
+    hidden_word = "-" * len(chosen_word)
+
+    while tries != 0:
+        print()
+        print_hidden_word(chosen_word, identified_letters)
+        letter = input("Input a letter: ")
+        if letter in chosen_word:
+            identified_letters.add(letter)
+        else:
+            print("No such letter in the word")
+        tries -= 1
+
+    print()
+    print("Thanks for playing!")
+    print("We'll see how well you did in the next stage")
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/69/stages/377/implement
-status: Unchecked
-record: -1
+status: Solved
+record: 6
