@@ -19,41 +19,45 @@ chosen_word = random.choice(word_list)
 tries = 8
 identified_letters = set()
 typed_letters = set()
-hidden_word = "-" * len(chosen_word)
+
+while True:
+    menu = input('Type "play" to play the game, "exit" to quit: ')
+    if menu == 'exit':
+        exit()
+    elif menu == 'play':
+        break
+    else:
+        continue
+
 print_hidden_word(chosen_word, identified_letters)
-previous_letter = ""
+
 while tries != 0:
 
     letter = input("Input a letter: ")
-    if not letter.islower():
-        print("It is not an ASCII lowercase letter")
-        print_hidden_word(chosen_word, identified_letters)
-        continue
-    if len(letter) != 1:
+    if letter in set(chosen_word):
+        if letter in identified_letters:
+            print("You already typed this letter")
+        else:
+            identified_letters.add(letter)
+    elif len(letter) > 1:
         print("You should print a single letter")
-        print_hidden_word(chosen_word, identified_letters)
-        continue
-    if letter in typed_letters and letter not in identified_letters:
-        print("You already typed this letter")
-        print_hidden_word(chosen_word, identified_letters)
-        continue
-
-    if letter in chosen_word and letter not in identified_letters:
-        identified_letters.add(letter)
-    elif letter in identified_letters:
-        tries -= 1
-    elif letter not in chosen_word:
+    elif not letter.islower():
+        print("It is not an ASCII lowercase letter")
+    elif letter not in set(chosen_word) and letter not in typed_letters:
         print("No such letter in the word")
+        typed_letters.add(letter)
         tries -= 1
-    elif identified_letters == set(chosen_word):
-        tries -= 1
+    elif letter in typed_letters and tries >= 1:
+        print("You already typed this letter")
     else:
         typed_letters.add(letter)
+        tries -= 1
 
-    if identified_letters == set(chosen_word) and tries == 0:
-        print("You guessed the word!")
-        print("You survived!")
-    elif identified_letters != set(chosen_word) and tries == 0:
-        print("You are hanged!")
-    else:
-        print_hidden_word(chosen_word, identified_letters)
+    if tries == 0:
+        if len(identified_letters) == len(set(chosen_word)):
+            print("You survived!")
+        else:
+            print("You are hanged!")
+        break
+
+    print_hidden_word(chosen_word, identified_letters)
