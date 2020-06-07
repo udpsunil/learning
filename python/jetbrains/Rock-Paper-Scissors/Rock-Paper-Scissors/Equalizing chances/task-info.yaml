@@ -12,45 +12,81 @@ files:
 
 
     class RPSTest(StageTest):
+
+        def __init__(self, module_to_test: str):
+            super().__init__(module_to_test)
+            self.wins = 0
+            self.draws = 0
+            self.loses = 0
+
         def generate(self) -> List[TestCase]:
-            self.options = ["rock", "paper", "scissors"]
-            return [TestCase(stdin=case, attach=case) for case in self.options]
+            options = ["rock", "paper", "scissors"]
+            inputs = list()
+            for option in options:
+                [inputs.append(option) for _ in range(50)]
+            tests = [TestCase(stdin=inp, attach=inp) for inp in inputs]
+            tests.append(TestCase(stdin='rock', attach='rock', check_function=self.check_random))
+            return tests
+
+        def check_random(self, reply: str, attach) -> CheckResult:
+
+            wrong_randomize = CheckResult.wrong("The results of the games: {} wins, {} draws and {} loses\n"
+                                                "Looks like you don't use random module to choose random option!\n"
+                                                "The number of wins, draws and loses should be approximately the same.\n"
+                                                "Make sure you output the results of the games like in examples!\n"
+                                                "If you pretty sure that you use random module try to rerun the tests!\n"
+                                                .format(self.wins, self.draws, self.loses))
+            if self.loses < 30:
+                return wrong_randomize
+            if self.draws < 30:
+                return wrong_randomize
+            if self.wins < 30:
+                return wrong_randomize
+            return CheckResult.correct()
 
         def check(self, reply: str, attach) -> CheckResult:
-            try:
-                if "Sorry" in reply:
-                    result = -1
-                    option = reply.split()[-1]
-                elif "draw" in reply:
-                    result = 0
-                    if '(' not in reply or ')' not in reply:
-                        return CheckResult.wrong(
-                            "There are no '(' or ')' character when there is a draw"
-                        )
-                    start = reply.index('(')
-                    end = reply.index(')')
-                    option = reply[start + 1: end]
-                elif "Well" in reply:
-                    result = 1
-                    option = reply.split()[-3]
-                else:
-                    raise IndexError
-                res = self.solve(result, [attach.strip(), option.strip()])
-                if res < 0:
-                    raise IndexError
-            except IndexError:
-                return CheckResult.wrong("Seems like your answer (\"{}\") does not fit in given templates".format(reply))
-            return CheckResult(res, "Your answer on \"{}\" was \"{}\". That's pretty wrong".format(attach, option))
 
-        def solve(self, result, options):
-            if any(opt not in self.options for opt in options):
-                return -1
-            diff = self.options.index(options[0]) - self.options.index(options[1])
-            if not diff:
-                true_result = 0
+            wrong_result = CheckResult.wrong(
+                "Seems like your answer (\"{}\") does not fit in given templates".format(reply))
+
+            hits = {
+                'rock': 'scissors',
+                'scissors': 'paper',
+                'paper': 'rock'
+            }
+
+            computer_option = 'not found'
+
+            if 'scissors' in reply.lower():
+                computer_option = 'scissors'
+            elif 'paper' in reply.lower():
+                computer_option = 'paper'
+            elif 'rock' in reply.lower():
+                computer_option = 'rock'
+
+            if computer_option == 'not found':
+                return wrong_result
+
+            if hits[attach] == computer_option:
+                result = 'well done'
+            elif attach == computer_option:
+                result = 'draw'
             else:
-                true_result = (-1) ** ((abs(diff) - (len(self.options) // 2) > 0) == (diff > 0))
-            return true_result == result
+                result = 'sorry'
+
+            if result not in reply.lower():
+                return wrong_result
+
+            if 'sorry' in reply.lower():
+                self.loses += 1
+            elif 'draw' in reply.lower():
+                self.draws += 1
+            elif 'well done' in reply.lower():
+                self.wins += 1
+            else:
+                return wrong_result
+
+            return CheckResult.correct()
 
 
     RPSTest("rps.game").run_tests()
