@@ -28,6 +28,10 @@ def cube(k):
     return pow(k, 3)
 
 
+def pi_term(k):
+    return 8 / ((4 * k - 3) * (4 * k - 1))
+
+
 def summation(n, term):
     """Sum the first N terms of a sequence.
 
@@ -63,3 +67,30 @@ def sum_cubes(n):
     225
     """
     return summation(n, cube)
+
+
+def sum_pi(n):
+    """Sum the first N pi terms to get pi value
+
+    Args:
+        n ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    >>> sum_pi(100)
+    3.1365926848388144
+    """
+    return summation(n, pi_term)
+
+
+class Test:
+
+    def my_test(self, value):
+        """[summary]
+
+        Args:
+            value ([type]): [description]
+        >>> Test.my_test(Test,10)
+        10
+        """
+        return value
