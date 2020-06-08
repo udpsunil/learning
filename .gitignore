@@ -1,8 +1,10 @@
 *.exe
 *.json
+*.pyc
 
 #folders
 .idea
 .ipynb*
 .vscode
 .vs
+
