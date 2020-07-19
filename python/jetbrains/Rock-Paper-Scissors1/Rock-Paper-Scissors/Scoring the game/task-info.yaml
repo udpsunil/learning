@@ -143,6 +143,19 @@ files:
     if __name__ == '__main__':
         RPSTest("rps.game").run_tests()
   learner_created: false
+- name: rps/game.py
+  visible: true
+  text: "import random\n# Write your code here\nrps_choices = ['rock', 'paper', 'scissors']\n\
+    messages = ['Well done. Computer chose {} and failed',\n            'There is\
+    \ a draw ({})',\n            'Sorry, but computer chose {}']\nuser_input = input()\n\
+    while user_input.find('!exit') == -1:\n    if user_input not in rps_choices:\n\
+    \        print(\"Invalid input\")        \n    else:\n        user_index = rps_choices.index(user_input)\n\
+    \        computer_choice = random.choice(rps_choices)\n\n        game_outcome\
+    \ =[(rps_choices.index(computer_choice) + 1) % 3,\n                       rps_choices.index(computer_choice),\n\
+    \                       (rps_choices.index(computer_choice) - 1) % 3]\n\n    \
+    \    print(messages[game_outcome.index(user_index)].format(computer_choice))\n\
+    \    user_input = input()\nelse:\n    print(\"Bye!\")\n"
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/78/stages/434/implement
-status: Unchecked
+status: Solved
 record: -1

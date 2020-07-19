@@ -119,5 +119,5 @@ files:
     print(messages[game_outcome.index(user_index)].format(computer_choice))
   learner_created: false
 feedback_link: https://hyperskill.org/projects/78/stages/433/implement
-status: Failed
-record: -1
+status: Solved
+record: 3
