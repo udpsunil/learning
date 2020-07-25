@@ -33,3 +33,44 @@ def print_rational(x):
 
 def reationals_are_equal(x, y):
     return numer(x) * denom(y) == numer(y) * denom(x)
+
+
+# Violation of abstractions defined earlier
+
+def square_rational_no_violation(x):
+    return mul_rational(x, x)
+
+
+def square_rational_with_one_level_violation(x):
+    return rational(numer(x) * numer(x), denom(x) * denom(x))
+
+
+def square_rational_with_two_level_violation(x):
+    return [x[0] * x[0], x[1] * x[1]]
+
+
+#================================================#
+# Implementing the same rational abstraction but with different programming constructs# 
+
+def pair(x, y):
+    """Return a function that represents a pair.
+
+    Args:
+        x ([type]): [description]
+        y ([type]): [description]
+    """
+    def get(index):
+        if index== 0:
+            return x
+        elif index == 1:
+            return y
+    return get
+
+def select(p, i):
+    """Return the element at index i of pair p
+
+    Args:
+        p ([type]): [description]
+        i ([type]): [description]
+    """
+    p(i)
